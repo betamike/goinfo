@@ -7,6 +7,7 @@ Package providing a proc-like interface to monitor running Go processes
 goinfo requires [go-fuse](https://github.com/hanwen/go-fuse) to implement the proc-like file system. Due to this dependency, goinfo currently only works on Linux.
 
 To install `go-fuse` you can simply run
+
     $ go get github.com/hanwen/go-fuse
 
 If you use [goat](https://github.com/mediocregopher/goat), a Goatfile is included in the project already.
