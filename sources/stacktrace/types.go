@@ -1,10 +1,10 @@
 package stacktrace
 
 import (
-    "time"
+	"time"
 )
 
 type StacktraceRecord struct {
-    Stacktrace []byte
-    LastUpdated time.Time
+	Stacktrace  []byte
+	LastUpdated time.Time
 }
