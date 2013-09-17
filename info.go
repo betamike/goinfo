@@ -1,4 +1,4 @@
-package gomonitor
+package goinfo
 
 import (
     "errors"
@@ -11,9 +11,9 @@ import (
 	"github.com/hanwen/go-fuse/fuse/nodefs"
 	"github.com/hanwen/go-fuse/fuse/pathfs"
 
-    "github.com/betamike/gomonitor/stacktrace"
-    "github.com/betamike/gomonitor/memstats"
-    "github.com/betamike/gomonitor/sources"
+    "github.com/betamike/goinfo/stacktrace"
+    "github.com/betamike/goinfo/memstats"
+    "github.com/betamike/goinfo/sources"
 )
 
 type GoMonitorFs struct {

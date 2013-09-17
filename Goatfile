@@ -1,5 +1,5 @@
 {
-    "path":"github.com/betamike/gomonitor",
+    "path":"github.com/betamike/goinfo",
     "deps":[
         {
           "loc":"https://github.com/hanwen/go-fuse.git",

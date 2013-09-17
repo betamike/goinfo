@@ -1,11 +1,11 @@
 package main
 
 import (
-    "github.com/betamike/gomonitor"
+    "github.com/betamike/goinfo"
 )
 
 func main() {
-    err := gomonitor.Start("/opt/go/example")
+    err := goinfo.Start("/opt/go/example")
     if err != nil {
         panic("Oh no! could not mount our monitoring file system: " + err.Error())
     }
