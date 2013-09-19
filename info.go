@@ -96,6 +96,12 @@ func Start(mountpoint string) error {
 
 	nfs := pathfs.NewPathNodeFs(gfs, nil)
 
+	if _, err := os.Stat(mountpoint); os.IsNotExist(err) {
+		if err = os.Mkdir(mountpoint,0755); err != nil {
+			return err
+		}
+	}
+
 	var err error
 	conn := nodefs.NewFileSystemConnector(nfs, nil)
 	server, err = fuse.NewServer(conn.RawFS(), mountpoint, &fuse.MountOptions{AllowOther: true})
