@@ -9,6 +9,7 @@ func main() {
 	if err != nil {
 		panic("Oh no! could not mount our monitoring file system: " + err.Error())
 	}
+	defer goinfo.StopAll()
 
 	//Start app business logic
 	select {}

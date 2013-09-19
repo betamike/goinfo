@@ -24,6 +24,7 @@ To start simply import `goinfo` and start the info interface at a given mount po
 
     func main() {
       goinfo.Start("~/go/myapp")
+      defer goinfo.StopAll()
       //App logic
     }
 
