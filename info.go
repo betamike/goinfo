@@ -29,7 +29,7 @@ func init() {
 		StopAll()
 		os.Exit(1)
 	}()
-	signal.Notify(sig, syscall.SIGINT, syscall.SIGKILL)
+	signal.Notify(sig, syscall.SIGHUP, syscall.SIGQUIT, syscall.SIGINT, syscall.SIGTERM, syscall.SIGKILL)
 
 	//create the file system
 	gfs = gmfs.New()
