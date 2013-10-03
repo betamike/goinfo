@@ -37,10 +37,18 @@ func init() {
 	gfs.AddSource(memstats.NewMemStatsSource())
 }
 
+// AddSource takes a DataSource and adds it to the goinfo file system.
+// This allows programs to define additional types of information to be
+// made accessible via the goinfo file system.
 func AddSource(source sources.DataSource) {
 	gfs.AddSource(source)
 }
 
+// Start takes a path to the directory where the goinfo file system
+// should be mounted. If the directory does not exist, it will be 
+// created. Start will return an error if the directory cannot be
+// created or if the file system cannot be mounted at this location
+// for any reason.
 func Start(mountpoint string) error {
 	//already mounted there
 	if _, found := servers[mountpoint]; found {
@@ -68,6 +76,9 @@ func Start(mountpoint string) error {
 	return nil
 }
 
+// Stop will unmount the goinfo file system mounted at the provided
+// path. If the path is not a goinfo mounted file system or if the 
+// unmounted fails, Stop will return an error.
 func Stop(mountpoint string) error {
 	server, found := servers[mountpoint]
 	if !found {
@@ -83,6 +94,8 @@ func Stop(mountpoint string) error {
 	return nil
 }
 
+// StopAll will unmount all goinfo file systems mounted by this
+// program.
 func StopAll() {
 	for _, server := range servers {
 		server.Unmount()
