@@ -2,7 +2,7 @@ package sources
 
 // DataSource is an interface which provides information to be
 // presented through the goinfo file system. Client programs
-// can implement their down DataSource types in order to expose
+// can implement their own DataSource types in order to expose
 // additional information through the file system.
 type DataSource interface {
 

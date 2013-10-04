@@ -22,50 +22,52 @@
 	information accessible via this file system. Each DataSource will be represented as a directory
 	under the root mount point, and can provide any number of files beneath them. For example:
 
-		type FooDataSource struct {
-			numBars int
-			tsBar uint64
-			numBats int
-			tsBat uint64
+		type CountsDataSource struct {
+			arbitraryCountA int
+			timestampA      uint64
+
+			arbitraryCountB int
+			timestampB      uint64
 		}
-		
-		func (f *FooDataSource) Name() string {
-			return "foo"
+
+		func (ds *CountsDataSource) Name() string {
+			return "counts"
 		}
-		
-		func (f *FooDataSource) Listing() []string {
-			return []string{"bar", "bat"}
+
+		func (ds *CountsDataSource) Listing() []string {
+			return []string{"countA", "countB"}
 		}
-		
-		func (f *FooDataSource) Contents(name string) (content []byte, found bool) {
-			switch (name) {
-				case "bar":
-					found = true
-					content = []byte(fmt.Printf("%d", f.numBars))
-				case "bat":
-					found = true
-					content = []byte(fmt.Printf("%d", f.numBats))
-				default:
-					found = false
-					content = nil
+
+		func (ds *CountsDataSource) Contents(name string) (content []byte, found bool) {
+			switch name {
+			case "countA":
+				found = true
+				content = []byte(fmt.Sprintf("%d\n", ds.arbitraryCountA))
+			case "countB":
+				found = true
+				content = []byte(fmt.Sprintf("%d\n", ds.arbitraryCountB))
+			default:
+				found = false
+				content = nil
 			}
 			return
 		}
-		
-		func (f *FooDataSource) Name(name string) (l uint64,  ts uint64, found bool) {
-			switch (name) {
-				case "bar":
-					found = true
-					ts = f.tsBar
-					l = uint64(len(fmt.Printf("%d", f.numBars)))
-				case "bat":
-					found = true
-					ts = f.tsBat
-					l  = uint64(len(fmt.Printf("%d", f.numBars)))
-				default:
-					found = false
-					ts = 0
-					l = 0
+
+		func (ds *CountsDataSource) Metadata(name string) (l uint64, ts uint64, found bool) {
+			content, _ := ds.Contents(name)
+			switch name {
+			case "countA":
+				found = true
+				ts = ds.timestampA
+				l = uint64(len(content))
+			case "countB":
+				found = true
+				ts = ds.timestampB
+				l = uint64(len(content))
+			default:
+				found = false
+				ts = 0
+				l = 0
 			}
 			return
 		}
@@ -73,8 +75,10 @@
 	The above DataSource would add this structure to the goinfo file system:
 	The following directory structure is found at the mounted path:
 		|- mount
-		    |- foo
-		        |- bar
-		        |- bat
+		    |- counts
+		        |- countA
+		        |- countB
+
+	For the full example check out "examples/define-source" in the source repository.
 */
 package goinfo
