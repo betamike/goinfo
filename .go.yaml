@@ -1,0 +1,7 @@
+---
+path: github.com/betamike/goinfo
+deps:
+    - loc: https://github.com/hanwen/go-fuse.git
+      type: git
+      ref: 0d6f57fcf2a0569d4abe695524ea2a816148aec4
+      path: github.com/hanwen/go-fuse
