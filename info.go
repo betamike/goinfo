@@ -62,7 +62,7 @@ func Start(mountpoint string) error {
 	}
 
 	nfs := pathfs.NewPathNodeFs(gfs, nil)
-	conn := nodefs.NewFileSystemConnector(nfs, nil)
+	conn := nodefs.NewFileSystemConnector(nfs.Root(), nil)
 	server, err := fuse.NewServer(conn.RawFS(), mountpoint, &fuse.MountOptions{AllowOther: true})
 	if err != nil {
 		return errors.New("Failed to mount monitoring fs at " + mountpoint + ": " + err.Error())
