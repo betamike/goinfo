@@ -18,10 +18,6 @@ func (ds *CountsDataSource) Name() string {
 	return "counts"
 }
 
-func (ds *CountsDataSource) Listing() []string {
-	return []string{"countA", "countB"}
-}
-
 func (ds *CountsDataSource) Contents(name string) (content []byte, found bool) {
 	switch name {
 	case "countA":
@@ -37,36 +33,17 @@ func (ds *CountsDataSource) Contents(name string) (content []byte, found bool) {
 	return
 }
 
-func (ds *CountsDataSource) Metadata(name string) (l uint64, ts uint64, found bool) {
-	content, _ := ds.Contents(name)
-	switch name {
-	case "countA":
-		found = true
-		ts = ds.timestampA
-		l = uint64(len(content))
-	case "countB":
-		found = true
-		ts = ds.timestampB
-		l = uint64(len(content))
-	default:
-		found = false
-		ts = 0
-		l = 0
-	}
-	return
-}
-
+// Use the endpoint with:
+// echo /counts/countA | nc localhost 10000
 func main() {
 	countDS := &CountsDataSource{}
 
-	goinfo.AddSource(countDS)
-	err := goinfo.Start("example")
+	_, err := goinfo.Start("localhost:10000", countDS)
 	if err != nil {
-		panic("Oh no! could not mount our monitoring file system: " + err.Error())
+		panic("Oh no! could not mount our endpoint: " + err.Error())
 	}
-	defer goinfo.StopAll()
 
-	//Start app business logic
+	// Start app business logic
 	for {
 		select {
 		case <-time.After(500 * time.Millisecond):
