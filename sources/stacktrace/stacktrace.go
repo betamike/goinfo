@@ -32,14 +32,6 @@ func (ss *StacktraceSource) Contents(name string) ([]byte, bool) {
 	return stack, true
 }
 
-func (ss *StacktraceSource) Metadata(name string) (uint64, uint64, bool) {
-	if name != "stacktrace" {
-		return 0, 0, false
-	}
-	stack, updated := ss.getStacktrace()
-	return uint64(len(stack)), uint64(updated.Unix()), true
-}
-
 func (ss *StacktraceSource) getStacktrace() ([]byte, time.Time) {
 	ret := make(chan StacktraceRecord)
 	ss.getStacktraceRec <- ret
