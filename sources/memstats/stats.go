@@ -21,19 +21,9 @@ func (ms *MemStatsSource) Name() string {
 	return "mem"
 }
 
-func (ms *MemStatsSource) Listing() []string {
-	return []string{"genmem", "heap", "stack",
-		"mspan", "mcache", "buckethash", "gc"}
-}
-
 func (ms *MemStatsSource) Contents(name string) ([]byte, bool) {
 	content, _, found := ms.itemInfo(name)
 	return content, found
-}
-
-func (ms *MemStatsSource) Metadata(name string) (uint64, uint64, bool) {
-	content, updated, found := ms.itemInfo(name)
-	return uint64(len(content)), uint64(updated.Unix()), found
 }
 
 func (ms *MemStatsSource) itemInfo(name string) ([]byte, time.Time, bool) {

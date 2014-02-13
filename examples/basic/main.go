@@ -5,12 +5,13 @@ import (
 )
 
 func main() {
-	err := goinfo.Start("example")
+	_, err := goinfo.Start("localhost:10000")
 	if err != nil {
-		panic("Oh no! could not mount our monitoring file system: " + err.Error())
+		panic("Oh no! could not mount our endpoint: " + err.Error())
 	}
-	defer goinfo.StopAll()
 
-	//Start app business logic
+	// Start app business logic
+	// Use the endpoint with:
+	// echo /stacktrace/stacktrace | nc localhost 10000
 	select {}
 }
